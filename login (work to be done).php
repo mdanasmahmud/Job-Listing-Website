@@ -7,8 +7,16 @@ if(isset($_POST['submit'])){
 
    $email = mysqli_real_escape_string($conn, $_POST['email']);
    $pass = mysqli_real_escape_string($conn, md5($_POST['password']));
+   $user_type = $_POST['user_type'];
 
-   $select_users = mysqli_query($conn, "SELECT * FROM `job_seeker` WHERE email = '$email' AND password = '$pass'") or die('query failed');
+   if($user_type == 'job_seeker'){
+      $select_users = mysqli_query($conn, "SELECT * FROM `job_seeker` WHERE email = '$email' AND password = '$pass'") or die('query failed');
+
+   }elseif($user_type == 'company'){
+      $select_users = mysqli_query($conn, "SELECT * FROM `company` WHERE email = '$email' AND password = '$pass'") or die('query failed');
+   }
+
+   
 
    if(mysqli_num_rows($select_users) > 0){
 
