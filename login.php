@@ -9,6 +9,8 @@ if(isset($_POST['submit'])){
    $pass = mysqli_real_escape_string($conn, md5($_POST['password']));
    $user_type = $_POST['user_type'];
 
+   $select_users = 0;
+
    if($user_type == 'job_seeker'){
       $select_users = mysqli_query($conn, "SELECT * FROM `job_seeker` WHERE email = '$email' AND password = '$pass'") or die('query failed');
 
@@ -22,7 +24,7 @@ if(isset($_POST['submit'])){
 
       $row = mysqli_fetch_assoc($select_users);
 
-      if($row['user_type'] == 'admin'){
+      if($row['account_type'] == 'admin'){
 
          $_SESSION['admin_name'] = $row['name'];
          $_SESSION['admin_email'] = $row['email'];
@@ -30,15 +32,16 @@ if(isset($_POST['submit'])){
          header('location:admin_page.php');
 
       }
-      elseif($row['user_type'] == 'user'){
+      elseif($row['account_type'] == 'job_seeker'){
 
          $_SESSION['user_name'] = $row['name'];
          $_SESSION['user_email'] = $row['email'];
          $_SESSION['user_id'] = $row['id'];
+         $_SESSION['account_type'] = $row['account_type'];
          header('location:home.php');
 
       }
-      elseif($row['user_type'] == 'company'){
+      elseif($row['account_type'] == 'company'){
 
          $_SESSION['user_name'] = $row['name'];
          $_SESSION['user_email'] = $row['email'];
@@ -51,7 +54,7 @@ if(isset($_POST['submit'])){
 
 }
 
-?>
+}?>
 
 <!DOCTYPE html>
 <html lang="en">

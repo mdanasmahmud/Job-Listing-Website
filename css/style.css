@@ -41,6 +41,7 @@
    background-color: var(--purple);
 }
 
+
 html{
    font-size: 62.5%;
    overflow-x: hidden;
@@ -372,7 +373,7 @@ section{
    line-height: 1.5;
 }
 
-.products .box-container{
+.joblist .box-container{
    max-width: 1200px;
    margin:0 auto;
    display: grid;
@@ -382,7 +383,7 @@ section{
    justify-content: center;
 }
 
-.products .box-container .box{
+.joblist .box-container .box{
    border-radius: .5rem;
    background-color: var(--white);
    box-shadow: var(--box-shadow);
@@ -392,17 +393,17 @@ section{
    position: relative;
 }
 
-.products .box-container .box .image{
+.joblist .box-container .box .image{
    height: 30rem;
 }
 
-.products .box-container .box .name{
+.joblist .box-container .box .name{
    padding:1rem 0;
    font-size: 2rem;
    color:var(--black);
 }
 
-.products .box-container .box .qty{
+.joblist .box-container .box .qty{
    width: 100%;
    padding:1.2rem 1.4rem;
    border-radius: .5rem;
@@ -411,7 +412,7 @@ section{
    font-size: 2rem;
 }
 
-.products .box-container .box .price{
+.joblist .box-container .box .price{
    position: absolute;
    top:1rem; left:1rem;
    border-radius: .5rem;

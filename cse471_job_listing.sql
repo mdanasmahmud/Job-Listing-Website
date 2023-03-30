@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2023 at 01:36 AM
+-- Generation Time: Mar 30, 2023 at 11:38 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -58,11 +58,19 @@ CREATE TABLE `jobs_posted` (
   `job_company_id` int(100) NOT NULL,
   `job_details` text NOT NULL,
   `job_type` varchar(100) NOT NULL,
+  `job_category` varchar(100) NOT NULL,
   `job_salary` int(11) NOT NULL,
   `job_location` varchar(100) NOT NULL,
   `job_creation_date` date NOT NULL,
   `job_expiration_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `jobs_posted`
+--
+
+INSERT INTO `jobs_posted` (`job_id`, `job_title`, `job_company_id`, `job_details`, `job_type`, `job_category`, `job_salary`, `job_location`, `job_creation_date`, `job_expiration_date`) VALUES
+(1, 'Bkash', 1, '0', 'Full Time', '0', 70000, '0', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -167,7 +175,7 @@ ALTER TABLE `company`
 -- AUTO_INCREMENT for table `jobs_posted`
 --
 ALTER TABLE `jobs_posted`
-  MODIFY `job_id` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `job_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `job_seeker`
