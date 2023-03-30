@@ -68,7 +68,7 @@ if(isset($message)){
 
          <nav class="navbar">
             <a href="home.php">Home</a>
-            <a href="shop.php">All Jobs</a>
+            <a href="all_jobs.php">All Jobs</a>
 
             <div class="dropdown">
               <a href="all_job_categories.php" class="dropbtn">Job Category</a>
@@ -79,15 +79,14 @@ if(isset($message)){
               </div>
             </div>
 
-            <a href="orders.php">Applied Jobs</a>
-            <a href="contact.php">Contact</a>
+            <a href="applied_jobs.php">Applied Jobs</a>
             
             
          </nav>
 
          <div class="icons">
             <div id="menu-btn" class="fas fa-bars"></div>
-            <a href="search_page.php" class="fas fa-search"></a>
+            <a href="search_jobs.php" class="fas fa-search"></a>
             <div id="user-btn" class="fas fa-user"></div>
          </div>
 
