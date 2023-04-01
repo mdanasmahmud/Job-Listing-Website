@@ -1,4 +1,5 @@
 <?php
+
 if(isset($message)){
    foreach($message as $message){
       echo '
@@ -8,6 +9,13 @@ if(isset($message)){
       </div>
       ';
    }
+}
+
+if (isset($_GET['value'])) {
+   // Set the session variable
+   $_SESSION['value'] = $_GET['value'];
+   header('Location: /cse471_job_listing/all_jobs.php');
+
 }
 ?>
 
@@ -71,11 +79,22 @@ if(isset($message)){
             <a href="all_jobs.php">All Jobs</a>
 
             <div class="dropdown">
-              <a href="all_job_categories.php" class="dropbtn">Job Category</a>
+              <a href="#" class="dropbtn">Job Category</a>
               <div class="dropdown-content">
-                <a href="#">Category 1</a>
-                <a href="#">Category 2</a>
-                <a href="#">Category 3</a>
+                <a href="all_jobs.php?value=Accounting">Accounting</a>
+                <a href="all_jobs.php?value=Bank">Bank</a>
+                <a href="all_jobs.php?value=Customer Service">Customer Service</a>
+                <a href="all_jobs.php?value=Data Entry">Data Entry</a>
+                <a href="all_jobs.php?value=Engineer">Engineer</a>
+                <a href="all_jobs.php?value=IT">IT</a>
+                <a href="all_jobs.php?value=Manager">Manager</a>
+                <a href="all_jobs.php?value=Marketing">Marketing</a>
+                <a href="all_jobs.php?value=Medical">Medical</a>
+                <a href="all_jobs.php?value=NGO">NGO</a>
+                <a href="all_jobs.php?value=Teacher">Teacher</a>
+                <a href="all_jobs.php?value=Others">Others</a>
+                
+                
               </div>
             </div>
 

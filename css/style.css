@@ -841,6 +841,8 @@ section{
    color:var(--purple);
 }
 
+/* This is the category form */
+
 .search-form form{
    max-width: 1200px;
    margin:0 auto;
@@ -862,14 +864,6 @@ section{
    border-radius: .5rem;
 }
 
-
-
-
-
-
-
-
- 
 
 .footer{
    background-color: var(--light-bg);
