@@ -40,8 +40,8 @@ if(isset($message)){
 
    <form action="" method="post">
       <h3>For Whom Is This Account For?</h3>
-      <p><a href="register_user.php">Job Seeker</a></p>
-      <p><a href="register_company.php">Company</a></p>
+      <input value="Register User" id="close-update" class="btn" onclick="window.location = 'register_user.php'" style="text-align: center;">
+      <input value="Register Company" id="close-update" class="btn" onclick="window.location = 'register_company.php'" style="text-align: center;">
       <p>Already have an account? <a href="login.php">Login Now</a></p>
    </form>
 

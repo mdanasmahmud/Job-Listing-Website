@@ -4,6 +4,7 @@ include 'config.php';
 
 session_start();
 
+
 $account_type = $_SESSION['account_type'];
 
 if($account_type != 'job_seeker'){
@@ -47,15 +48,13 @@ if($account_type != 'job_seeker'){
    <div class="box-container">
 
       <?php  
-         $select_jobs = mysqli_query($conn, "SELECT * FROM `jobs_posted` LIMIT 6") or die('query failed');
+         $select_jobs = mysqli_query($conn, "SELECT * FROM `jobs_posted` LIMIT 3") or die('query failed');
          if(mysqli_num_rows($select_jobs) > 0){
             while($fetch_products = mysqli_fetch_assoc($select_jobs)){
       ?>
      <form action="" method="post" class="box">
-      <div class="price"><?php echo $fetch_products['job_title']; ?></div>
-      <div class="name"><?php echo $fetch_products['job_type']; ?></div>
-      
-      
+      <div class="qty"><?php echo $fetch_products['job_title']; ?><br></div>
+      <div class="price"><?php echo $fetch_products['job_type']; ?></div>
      </form>
       <?php
          }
@@ -66,7 +65,7 @@ if($account_type != 'job_seeker'){
    </div>
 
    <div class="load-more" style="margin-top: 2rem; text-align:center">
-      <a href="job_listing.php" class="option-btn">load more</a>
+      <a href="all_jobs.php" class="option-btn">load more</a>
    </div>
 
 </section>

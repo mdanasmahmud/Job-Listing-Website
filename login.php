@@ -11,12 +11,15 @@ if(isset($_POST['submit'])){
 
    $select_users = 0;
 
-   if($user_type == 'job_seeker'){
-      $select_users = mysqli_query($conn, "SELECT * FROM `job_seeker` WHERE email = '$email' AND password = '$pass'") or die('query failed');
+   $select_users = mysqli_query($conn, "SELECT * FROM `job_seeker` WHERE email = '$email' AND password = '$pass'") or die('query failed');
 
-   }elseif($user_type == 'company'){
+   if(mysqli_num_rows($select_users) <= 0){
       $select_users = mysqli_query($conn, "SELECT * FROM `company` WHERE email = '$email' AND password = '$pass'") or die('query failed');
+      $worked = 'Company is working';
+      echo "<script>console.log('" . $worked . "');</script>";
    }
+
+
 
    
 
@@ -46,7 +49,7 @@ if(isset($_POST['submit'])){
          $_SESSION['user_name'] = $row['name'];
          $_SESSION['user_email'] = $row['email'];
          $_SESSION['user_id'] = $row['id'];
-         header('location:home.php');
+         header('location:company_dashboard.php');
 
    }else{
       $message[] = 'incorrect email or password!';
@@ -92,12 +95,13 @@ if(isset($message)){
       <h3>login now</h3>
       <input type="email" name="email" placeholder="Enter Your Email" required class="box">
       <input type="password" name="password" placeholder="Enter Your Passowrd" required class="box">
-      <select name="user_type" class="box">
+      <select hidden name="user_type" class="box">
          <option value="job_seeker">Job Seeker</option>
          <option value="admin">Admin</option>
          <option value="company">Company</option>
       </select>
       <input type="submit" name="submit" value="Login Now" class="btn">
+      <p hidden>Can't remember your password? <a href="forgot_password.php">Reset Now</a></p>
       <p>Don't have an account? <a href="register_type.php">Register Now</a></p>
    </form>
 

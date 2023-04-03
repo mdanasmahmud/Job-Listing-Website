@@ -44,13 +44,13 @@ if($account_type != 'job_seeker'){
    </form>
 </section>
 
-<section class="joblist">
+<section class="show-products">
 
    <div class="box-container">
       <?php
          if(isset($_POST['submit'])){
             $search_item = $_POST['search'];
-            $select_jobs = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE name LIKE '%{$search_item}%'") or die('query failed');
+            $select_jobs = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_title LIKE '%{$search_item}%' OR name LIKE '%{$search_item}%'") or die('query failed');
             if(mysqli_num_rows($select_jobs) > 0){
             while($fetch_job = mysqli_fetch_assoc($select_jobs)){
       ?>
