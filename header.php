@@ -97,7 +97,7 @@ if (isset($_GET['value'])) {
                 
               </div>
             </div>
-
+            <a href="tutorials.php">Tutorials</a>
             <a href="applied_jobs.php">Applied Jobs</a>
             
             
