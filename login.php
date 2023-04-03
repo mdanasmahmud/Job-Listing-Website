@@ -32,6 +32,7 @@ if(isset($_POST['submit'])){
          $_SESSION['admin_name'] = $row['name'];
          $_SESSION['admin_email'] = $row['email'];
          $_SESSION['admin_id'] = $row['id'];
+         $_SESSION['account_type'] = $row['account_type'];
          header('location:admin_page.php');
 
       }
@@ -49,6 +50,7 @@ if(isset($_POST['submit'])){
          $_SESSION['user_name'] = $row['name'];
          $_SESSION['user_email'] = $row['email'];
          $_SESSION['user_id'] = $row['id'];
+         $_SESSION['account_type'] = $row['account_type'];
          header('location:company_dashboard.php');
 
    }else{

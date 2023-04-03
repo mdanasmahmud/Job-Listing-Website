@@ -141,25 +141,25 @@ if(isset($_POST['job_sort_button'])){
 
          if (isset($_SESSION['value'])) {
             // Use the value
-            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` WHERE job_category='$job_header_category'") or die('query failed');
+            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` WHERE job_category='$job_header_category' AND job_post_status='Approved'") or die('query failed');
             echo "<script>console.log('" . $_SESSION['value'] . "');</script>";
             
             
          }
 
          else if(($job_category == 'All') and ($job_sort == 'Date Ascending') and (!isset($_POST['job_sort_button']))){ // This posts everything
-            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted`") or die('query failed');
+            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` WHERE job_post_status='Approved'") or die('query failed');
             
          }
 
 
 
          else if(($job_category == 'All') and ($job_sort == 'Date Ascending') and ($job_type == 'Both Time') and (isset($_POST['job_sort_button']))){ // If the category button was pressed
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted`") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` WHERE job_post_status='Approved'") or die('query failed');
             
          }
          else if(($job_category == 'All') and ($job_sort == 'Date Ascending') and ($job_type != 'Both Time') and (isset($_POST['job_sort_button']))){ // If the category button was pressed
-            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` WHERE job_type='$job_type'") or die('query failed');
+            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` WHERE job_type='$job_type' AND job_post_status='Approved'") or die('query failed');
          
          }
 
@@ -168,13 +168,13 @@ if(isset($_POST['job_sort_button'])){
          
          else if(($job_category != 'All') and ($job_sort == 'Date Ascending') and ($job_type == 'Both Time') and (isset($_POST['job_sort_button']))){ // If the category button was pressed
             
-            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_category='$job_category' AND job_salary BETWEEN '$min_job_salary' AND '$max_job_salary'") or die('query failed');
+            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_category='$job_category' AND job_salary AND job_post_status='Approved' BETWEEN '$min_job_salary' AND '$max_job_salary'") or die('query failed');
             
             
          }
          else if(($job_category != 'All') and ($job_sort == 'Date Ascending') and ($job_type != 'Both Time') and (isset($_POST['job_sort_button']))){ // If the category button was pressed
             
-            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_category='$job_category' AND job_type='$job_type' AND job_salary BETWEEN '$min_job_salary' AND '$max_job_salary'") or die('query failed');                  
+            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_category='$job_category' AND job_type='$job_type' AND job_post_status='Approved' AND job_salary BETWEEN '$min_job_salary' AND '$max_job_salary'") or die('query failed');                  
            
 
          }
@@ -185,26 +185,26 @@ if(isset($_POST['job_sort_button'])){
          else if(($job_category == 'All') and ($job_sort != 'Date Ascending') and ($job_type == 'Both Time') and (isset($_POST['job_sort_button']))){ // If the category button was pressed
             
             if($job_sort == 'Salary Ascending'){
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id ORDER BY job_salary asc") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_post_status='Approved' ORDER BY job_salary asc") or die('query failed');
             }
             else if($job_sort == 'Salary Descending'){
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id ORDER BY job_salary desc") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE AND job_post_status='Approved' ORDER BY job_salary desc") or die('query failed');
             }
             else if($job_sort == 'Date Descending'){
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id ORDER BY job_creation_date asc") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE AND job_post_status='Approved' ORDER BY job_creation_date asc") or die('query failed');
             }
             
          }
          else if(($job_category == 'All') and ($job_sort != 'Date Ascending') and ($job_type != 'Both Time') and (isset($_POST['job_sort_button']))){ // If the category button was pressed
             
             if($job_sort == 'Salary Ascending'){
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_type='$job_type' ORDER BY job_salary asc") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_type='$job_type' AND job_post_status='Approved' ORDER BY job_salary asc") or die('query failed');
             }
             else if($job_sort == 'Salary Descending'){
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_type='$job_type' ORDER BY job_salary desc") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_type='$job_type' AND job_post_status='Approved' ORDER BY job_salary desc") or die('query failed');
             }
             else if($job_sort == 'Date Descending'){
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_type='$job_type' ORDER BY job_creation_date asc") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_type='$job_type' AND job_post_status='Approved' ORDER BY job_creation_date asc") or die('query failed');
             }
             
          }
@@ -215,26 +215,26 @@ if(isset($_POST['job_sort_button'])){
          else if(($job_category != 'All') and ($job_sort != 'Date Ascending') and ($job_type == 'Both Time') and (isset($_POST['job_sort_button']))){ // If the category button was pressed
             echo "<script>console.log('" . $job_sort . "');</script>";
             if($job_sort == 'Salary Ascending'){
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_category='$job_category' ORDER BY job_salary asc") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_category='$job_category' AND job_post_status='Approved' ORDER BY job_salary asc") or die('query failed');
             }
             else if($job_sort == 'Salary Descending'){
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_category='$job_category' ORDER BY job_salary desc") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_category='$job_category' AND job_post_status='Approved' ORDER BY job_salary desc") or die('query failed');
             }
             else if($job_sort == 'Date Descending'){
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_category='$job_category' ORDER BY job_creation_date asc") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_category='$job_category' AND job_post_status='Approved' ORDER BY job_creation_date asc") or die('query failed');
             }
             
          }
          else if(($job_category != 'All') and ($job_sort != 'Date Ascending') and ($job_type != 'Both Time') and (isset($_POST['job_sort_button']))){ // If the category button was pressed
             echo "<script>console.log('" . $job_sort . "');</script>";
             if($job_sort == 'Salary Ascending'){
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_type='$job_type' AND job_category='$job_category' ORDER BY job_salary asc") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_type='$job_type' AND job_category='$job_category' AND job_post_status='Approved' ORDER BY job_salary asc") or die('query failed');
             }
             else if($job_sort == 'Salary Descending'){
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_type='$job_type' AND job_category='$job_category' ORDER BY job_salary desc") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_type='$job_type' AND job_category='$job_category' AND job_post_status='Approved' ORDER BY job_salary desc") or die('query failed');
             }
             else if($job_sort == 'Date Descending'){
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_type='$job_type' AND job_category='$job_category' ORDER BY job_creation_date asc") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_type='$job_type' AND job_category='$job_category' AND job_post_status='Approved' ORDER BY job_creation_date asc") or die('query failed');
             }
             
          }
