@@ -73,10 +73,10 @@ if($account_type != 'job_seeker'){
 </section>
 
 
-<?php include 'footer.php'; ?>
+
 
 <!-- custom js file link  -->
 <script src="js/script.js"></script>
-
+<?php include 'footer.php'; ?>
 </body>
 </html>
