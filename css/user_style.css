@@ -397,6 +397,8 @@ section{
    font-size: 1.6rem;
 }
 
+
+
 .side-bar .navbar a{
    display:block;
    padding: 2rem;
@@ -497,6 +499,21 @@ section{
 
 .quick-select .box-container .box .flex a:hover span{
    color: var(--white)  ;
+}
+
+.quick-select .box-container .box form{
+   text-align: center;
+}
+
+.quick-select .box-container .box form select{
+   border-radius: .5rem;
+   margin:.5rem 0;
+   width: 100%;
+   background-color: var(--light-bg);
+   border:var(--border);
+   padding:1.2rem 1.4rem;
+   font-size: 1.8rem;
+   color:var(--black);
 }
 
 .courses .box-container{
