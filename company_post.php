@@ -74,6 +74,7 @@ if(isset($_POST['add_job_button'])){
       </select>
 
       <input type="date" name="job_expiration_date" class="box" placeholder="Publication Date" required>
+      
       <select name="job_category" class="box" required> 
          <option value="Teacher">Teacher</option>
          <option value="Engineer">Engineer</option>

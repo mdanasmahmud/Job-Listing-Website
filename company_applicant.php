@@ -77,7 +77,6 @@ if(isset($_POST['update_application_status'])){
             <input type="hidden" name="application_id" value="<?php echo $fetch_job['application_id']; ?>">
             <select name="update_status">
                <option value="" selected disabled><?php echo $fetch_job['application_status']; ?></option>
-               <option value="Pending">Pending</option>
                <option value="Approve">Approve</option>
                <option value="Reject">Reject</option>
             </select>

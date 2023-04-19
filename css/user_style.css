@@ -165,8 +165,11 @@ section{
    border-radius: .5rem;
    padding:2rem;
    text-align: center;
-   box-shadow: var(--box-shadow);
-   border:var(--border);
+   border-radius: .5rem;
+   background-color: var(--white);
+   border: 1px solid black;
+   box-sizing: border-box;
+   box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 0 4px rgba(0,0,0,0.1);
    max-width: 50rem;
    margin:0 auto;
 }
@@ -346,6 +349,7 @@ section{
    top: 0; left: 0;
    height: 100vh;
    width: 30rem;
+   min-width: 15rem;
    background-color: var(--white);
    border-right: var(--border);
    z-index: 1200;
@@ -428,6 +432,52 @@ section{
    left: -31rem;
 }
 
+.edit-job-form{
+   min-height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   overflow-y: scroll;
+   top:0; left:0; 
+   z-index: 9999;
+   width: 100%;
+   height: 100%;
+   
+}
+
+.edit-job-form form{
+   width: 70rem;
+   padding:2rem;
+   text-align: center;
+   border-radius: .5rem;
+   background-color: var(--white);
+   border: 1px solid black;
+   box-sizing: border-box;
+   box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 0 4px rgba(0,0,0,0.1);
+}
+
+
+.edit-job-form form .box{
+   margin:1rem 0;
+   padding:1.2rem 1.4rem;
+   border:var(--border);
+   border-radius: .5rem;
+   background-color: var(--light-bg);
+   font-size: 1.8rem;
+   color:var(--black);
+   width: 100%;
+}
+
+.edit-job-form h3 {
+   text-align: center;
+   font-size: 2.4rem;
+   font-weight: bold;
+   text-transform: uppercase;
+   margin-top: 0;
+}
+
+
+
 .quick-select .box-container{
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(27.5rem, 1fr));
@@ -440,6 +490,11 @@ section{
    border-radius: .5rem;
    background-color: var(--white);
    padding: 2rem;
+   border-radius: .5rem;
+   background-color: var(--white);
+   border: 1px solid black;
+   box-sizing: border-box;
+   box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 0 4px rgba(0,0,0,0.1);
 }
 
 .quick-select .box-container .box .title{
@@ -457,6 +512,7 @@ section{
 .quick-select .box-container .box p span{
    color: var(--main-color);
 }
+
 
 .quick-select .box-container .tutor{
    text-align: center;
@@ -528,6 +584,10 @@ section{
    border-radius: .5rem;
    background-color: var(--white);
    padding: 2rem;
+
+   border: 1px solid black;
+   box-sizing: border-box;
+   box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 0 4px rgba(0,0,0,0.1);
 }
 
 .courses .box-container .box .tutor{
@@ -1558,27 +1618,19 @@ section{
 
 /* media queries  */
 
-@media (max-width:1200px){
-
-   body{
-      padding-left: 0;
+@media (max-width: 1200px) {
+   .side-bar {
+     width: 100%;
+     max-width: 30rem;
    }
-
-   .side-bar{
-      transition: .2s linear;
-      left: -30rem;
+ 
+   .side-bar.active {
+     left: 0;
+     box-shadow: 0 0 0 100vw rgba(0,0,0,.7);
    }
-
-   .side-bar.active{
-      left: 0;
-      box-shadow: 0 0 0 100vw rgba(0,0,0,.7);
-   }
-
-   .side-bar .close-side-bar{
-      display: block;
-   }
-
-}
+ 
+   /* other styles */
+ }
 
 @media (max-width:991px){
    
