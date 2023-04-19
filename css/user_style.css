@@ -160,6 +160,40 @@ section{
    transform: rotate(90deg);
 }
 
+.add-products form{
+   background-color: var(--white);
+   border-radius: .5rem;
+   padding:2rem;
+   text-align: center;
+   box-shadow: var(--box-shadow);
+   border:var(--border);
+   max-width: 50rem;
+   margin:0 auto;
+}
+
+.add-products form .category_buttons{
+   max-width: 100rem;
+
+}
+
+.add-products form h3{
+   font-size: 2.5rem;
+   text-transform: uppercase;
+   color:var(--black);
+   margin-bottom: 1.5rem;
+}
+
+.add-products form .box{
+   width: 100%;
+   background-color: var(--light-bg);
+   border-radius: .5rem;
+   margin:1rem 0;
+   padding:1.2rem 1.4rem;
+   color:var(--black);
+   font-size: 1.8rem;
+   border:var(--border);
+}
+
 .empty{
    background-color: var(--white);
    border-radius: .5rem;
