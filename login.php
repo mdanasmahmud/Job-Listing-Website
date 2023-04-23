@@ -3,11 +3,21 @@
 include 'config.php';
 session_start();
 
+// Delete accounts that does not have does not have NID and is 7 days old
+
+// Get the current date and time
+$current_date = date('Y-m-d');
+
+// Subtract 7 days from the current date
+$delete_date = date('Y-m-d', strtotime('-7 days', strtotime($current_date)));
+
+// SQL query to delete rows that have nothing in nid_picture and are 7 days old
+mysqli_query($conn, "DELETE FROM job_seeker WHERE nid_picture IS NULL AND account_creation_date <= '$delete_date'") or die('query failed');
+
 if(isset($_POST['submit'])){
 
    $email = mysqli_real_escape_string($conn, $_POST['email']);
    $pass = mysqli_real_escape_string($conn, md5($_POST['password']));
-   $user_type = $_POST['user_type'];
 
    $select_users = 0;
 
@@ -15,13 +25,8 @@ if(isset($_POST['submit'])){
 
    if(mysqli_num_rows($select_users) <= 0){
       $select_users = mysqli_query($conn, "SELECT * FROM `company` WHERE email = '$email' AND password = '$pass'") or die('query failed');
-      $worked = 'Company is working';
-      echo "<script>console.log('" . $worked . "');</script>";
    }
 
-
-
-   
 
    if(mysqli_num_rows($select_users) > 0){
 
@@ -96,14 +101,9 @@ if(isset($message)){
    <form action="" method="post">
       <h3>login now</h3>
       <input type="email" name="email" placeholder="Enter Your Email" required class="box">
-      <input type="password" name="password" placeholder="Enter Your Passowrd" required class="box">
-      <select hidden name="user_type" class="box">
-         <option value="job_seeker">Job Seeker</option>
-         <option value="admin">Admin</option>
-         <option value="company">Company</option>
-      </select>
+      <input type="password" name="password" placeholder="Enter Your Password" required class="box">
       <input type="submit" name="submit" value="Login Now" class="btn">
-      <p hidden>Can't remember your password? <a href="forgot_password.php">Reset Now</a></p>
+      <p>Can't remember your password? <a href="forgot_password.php">Reset Now</a></p>
       <p>Don't have an account? <a href="register_type.php">Register Now</a></p>
    </form>
 

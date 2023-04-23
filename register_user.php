@@ -11,6 +11,18 @@ if(isset($_POST['submit'])){
    $s_answer = mysqli_real_escape_string($conn, md5($_POST['security_answer']));
    $user_type = $_POST['user_type'];
 
+   // This is for uploading profile picture
+   $profile_image = $_FILES['profile_image']['name'];
+   $profile_image_size = $_FILES['profile_image']['size'];
+   $profile_image_tmp_name = $_FILES['profile_image']['tmp_name'];
+   $profile_image_folder = 'uploaded_img/profile_img/'.$profile_image;
+
+   // This is for uploading NID picture
+   $nid_image = $_FILES['nid_image']['name'];
+   $nid_image_size = $_FILES['nid_image']['size'];
+   $nid_image_tmp_name = $_FILES['nid_image']['tmp_name'];
+   $nid_image_folder = 'uploaded_img/nid_img/'.$nid_image;
+
    $select_users = mysqli_query($conn, "SELECT * FROM `job_seeker` WHERE email = '$email' AND password = '$pass'") or die('query failed');
 
    if(mysqli_num_rows($select_users) > 0){
@@ -19,8 +31,10 @@ if(isset($_POST['submit'])){
       if($pass != $cpass){
          $message[] = 'confirm password not matched!';
       }else{
-         mysqli_query($conn, "INSERT INTO `job_seeker`(name, email, password, security_answer, account_type) VALUES('$name', '$email', '$cpass','$s_answer', '$user_type')") or die('query failed');
+         mysqli_query($conn, "INSERT INTO `job_seeker`(name, email, password, security_answer, account_type, picture, nid_picture) VALUES('$name', '$email', '$cpass','$s_answer', '$user_type', '$profile_image', '$nid_image')") or die('query failed');
          $message[] = 'registered successfully!';
+         move_uploaded_file($profile_image_tmp_name, $profile_image_folder);
+         move_uploaded_file($nid_image_tmp_name, $nid_image_folder);
          header('location:login.php');
       }
    }
@@ -63,12 +77,18 @@ if(isset($message)){
    
 <div class="form-container">
 
-   <form action="" method="post">
+   <form action="" method="post" enctype="multipart/form-data">
       <h3>Register User</h3>
       <input type="text" name="name" placeholder="Enter Your Name" required class="box">
       <input type="email" name="email" placeholder="Enter Your Email" required class="box">
       <input type="password" name="password" placeholder="Enter Your Password" required class="box">
       <input type="password" name="cpassword" placeholder="Confirm Your Password" required class="box">
+      
+      <p>Upload Your Profile Picture (Optional)</p>
+      <input type="file" name="profile_image" accept="profile_image/jpg, profile_image/jpeg, profile_image/png" class="box">
+      <p>Upload Your NID (Optional but 7 Days To Upload)</p>
+      <input type="file" name="nid_image" accept="nid_image/jpg, nid_image/jpeg, nid_image/png" class="box">
+      
       <p>Who is the most important person to you?</p>
       <input type="text" name="security_answer" placeholder="Enter Security Answer" required class="box">
       <p>User Type</p>

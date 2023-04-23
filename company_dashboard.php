@@ -77,7 +77,7 @@ if(isset($_POST['update_job_post'])){
          $latest_applicant = mysqli_fetch_assoc($select_latest); // Fetching the latest applicant
          ?>
          <h3 class="title">Total Applicants: <?php echo $total_applicants ?></h3>
-         <p>Recent Applicant: <span><?php echo $latest_applicant['name'] ?></span></p>
+         <p>Recent Applicant: <span><?php if($latest_applicant['name'] == null){echo "No Applicant";} ?></span></p>
       </div>
 
 
