@@ -49,7 +49,8 @@ if(isset($message)){
    <nav class="navbar">
       <a href="company_dashboard.php"><i class="fas fa-home"></i><span>Home</span></a>
       <a href="company_post.php"><i class="fa-solid fa-plus"></i><span>Post a Job</span></a>
-      <a href="company_applicant.php"><i class="fa-solid fa-users"></i><span>Applicant</span></a>
+      <a href="company_applicant.php"><i class="fa-solid fa-users"></i><span>Applicants</span></a>
+      <a href="company_message.php"><i class="fa-solid fa-message"></i><span>Messages</span></a>
       <a href="logout.php"><i class="fa fa-sign-out"></i><span>Log Out</span></a>
 
    </nav>

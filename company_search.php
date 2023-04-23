@@ -11,6 +11,16 @@ if($account_type != 'company'){
    header('location:login.php');
 }
 
+if(isset($_POST['send_message_search'])){
+   $message_detail = $_POST['message_detail_search'];
+   $company_id = $_SESSION['user_id'];
+   $specific_job_seeker = $_POST['message_receiver_id'];
+   $insert_message = mysqli_query($conn, "INSERT INTO message (message_detail, message_sender_id, message_receiver_id) VALUES ('$message_detail', '$company_id', '$specific_job_seeker')") or die('query failed');
+   header('location:company_message.php');
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -58,10 +68,17 @@ if($account_type != 'company'){
       ?>
 
       <div class="box">
-         <div class="tutor">
-            <div>
+         <div class="tutor" style="display: flex; justify-content: center; align-items: center;">
+            <div class="just_test">
                <h3>Name: <?= $fetch_job['name']; ?></h3>
                <span>Email: <?= $fetch_job['email']; ?></span>
+               <br>
+               <br>
+               <<form method="post">
+                  <input type="hidden" name="message_receiver_id" value="<?php echo $fetch_job['id']; ?>">
+                  <textarea type="text" name="message_detail_search" class="box" required placeholder="Type Any Message"></textarea>
+                  <input type="submit" value="Send Message" name="send_message_search" class="btn" style="border: 1px solid black;">
+               </form>
             </div>
          </div>
       </div>
