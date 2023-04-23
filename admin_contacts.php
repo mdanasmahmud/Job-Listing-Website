@@ -43,23 +43,31 @@ if(isset($_GET['delete'])){
 
    <div class="box-container">
    <?php
-      $select_message = mysqli_query($conn, "SELECT * FROM `message`") or die('query failed');
-      if(mysqli_num_rows($select_message) > 0){
-         while($fetch_message = mysqli_fetch_assoc($select_message)){
-      
-   ?>
-   <div class="box">
-      <p> Sender : <span><?php echo $fetch_message['message_sender_id']; ?></span> </p>
-      <p> Sender : <span><?php echo $fetch_message['message_receiver_id']; ?></span> </p>
-      <p> Message : <span><?php echo $fetch_message['message_detail']; ?></span> </p>
-      <a href="admin_contacts.php?delete=<?php echo $fetch_message['message_id']; ?>" onclick="return confirm('delete this message?');" class="delete-btn">delete message</a>
-   </div>
-   <?php
-      };
-   }else{
-      echo '<p class="empty">you have no messages!</p>';
-   }
-   ?>
+      $admin_id = $_SESSION['admin_id'];
+      $select_post = mysqli_query($conn, "SELECT job_seeker.name AS job_seeker_name, max(message.message_time) AS message_time, job_seeker.id AS job_seeker_id, company.name AS company_name,
+      company.id AS company_id
+      FROM message
+      JOIN company ON message.message_sender_id = company.id
+      JOIN job_seeker ON message.message_receiver_id = job_seeker.id 
+      WHERE message.message_receiver_id = '$admin_id'
+      GROUP BY job_seeker.name
+      ORDER BY message_time ASC") or die('query failed');
+      if(mysqli_num_rows($select_post) > 0){
+         while($fetch_job = mysqli_fetch_assoc($select_post)){
+      ?>
+      <div class="box">
+        <a href="admin_contacts_details.php?job_seeker_id=<?php echo $fetch_job['company_id']; ?>"><p> Name : <span><?php echo $fetch_job['company_name']; ?></span> </p></a>
+        
+         
+        <p> Latest Message : <span><?php echo $fetch_job['message_time']; ?></span> </p>
+        
+      </div>
+      <?php
+         }
+      }else{
+         echo '<p class="empty">No Messages To Show</p>';
+      }
+      ?>
    </div>
 
 </section>

@@ -7,13 +7,13 @@ session_start();
 
 $account_type = $_SESSION['account_type'];
 
-if($account_type != 'company'){
+if($account_type != 'admin'){
    header('location:login.php');
 }
 
 if(isset($_POST['send_message'])){
     $message_detail = $_POST['message_detail'];
-    $company_id = $_SESSION['user_id'];
+    $company_id = $_SESSION['admin_id'];
     $specific_job_seeker = $_GET['job_seeker_id'];
     $insert_message = mysqli_query($conn, "INSERT INTO message (message_detail, message_sender_id, message_receiver_id) VALUES ('$message_detail', '$company_id', '$specific_job_seeker')") or die('query failed');
     header('location:'.$_SERVER['REQUEST_URI']);
@@ -35,12 +35,13 @@ if(isset($_POST['send_message'])){
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
    <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/user_style.css">
+   <link rel="stylesheet" href="css/admin_style.css">
+   <!-- <link rel="stylesheet" href="css/user_style.css"> -->
 
 </head>
 <body>
 
-<?php include 'company_header.php'; ?>
+<?php include 'admin_header.php'; ?>
 
 <!-- quick select section starts  -->
 
@@ -50,7 +51,7 @@ if(isset($_POST['send_message'])){
         <?php 
         $temp_id = $_GET['job_seeker_id'];
         
-        $userMessage = mysqli_query($conn, "SELECT name FROM `job_seeker` WHERE id='$temp_id'") or die('query failed');
+        $userMessage = mysqli_query($conn, "SELECT name FROM `company` WHERE id='$temp_id'") or die('query failed');
         
         if(mysqli_num_rows($userMessage) > 0){
             $row = mysqli_fetch_assoc($userMessage);
@@ -70,7 +71,7 @@ if(isset($_POST['send_message'])){
 
 <div class="box-container">
    <?php
-        $company_id = $_SESSION['user_id'];
+        $company_id = $_SESSION['admin_id'];
         $specific_job_seeker = $_GET['job_seeker_id'];
         $select_post = mysqli_query($conn, "SELECT 
     company.name AS sender_name,
@@ -82,8 +83,8 @@ FROM
     JOIN company ON message.message_sender_id = company.id
     JOIN job_seeker ON message.message_receiver_id = job_seeker.id 
 WHERE 
-    message.message_sender_id = '$company_id' 
-    AND job_seeker.id = '$specific_job_seeker'
+    message.message_sender_id = '$specific_job_seeker'
+    AND job_seeker.id =  '$company_id'
 
 UNION ALL
 
@@ -97,8 +98,8 @@ FROM
     JOIN job_seeker ON message.message_sender_id = job_seeker.id
     JOIN company ON message.message_receiver_id = company.id 
 WHERE 
-    message.message_sender_id = '$specific_job_seeker' 
-    AND company.id = '$company_id'
+    message.message_sender_id = '$company_id'
+    AND company.id = '$specific_job_seeker' 
 
 ORDER BY 
     message_time DESC") or die('query failed');
@@ -140,7 +141,7 @@ ORDER BY
 <!-- quick select section ends -->
 
 <!-- custom js file link  -->
-<script src="js/script.js"></script>
+<script src="js/admin_script.js"></script>
 
 </body>
 </html>

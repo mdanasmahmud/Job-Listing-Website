@@ -58,7 +58,7 @@ if (isset($_GET['job_seeker_id'])) {
          while($fetch_job = mysqli_fetch_assoc($select_post)){
       ?>
       <div class="box">
-        <a href="company_message_details.php?job_seeker_id=<?php echo $fetch_job['job_seeker_id']; ?>"><p> Job Seeker Name : <span><?php echo $fetch_job['job_seeker_name']; ?></span> </p></a>
+        <a href="company_message_details.php?job_seeker_id=<?php echo $fetch_job['job_seeker_id']; ?>"><p> Name : <span><?php echo $fetch_job['job_seeker_name']; ?></span> </p></a>
         
          
         <p> Latest Message : <span><?php echo $fetch_job['message_time']; ?></span> </p>
