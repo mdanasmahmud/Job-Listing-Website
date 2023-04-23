@@ -35,8 +35,17 @@ if($account_type != 'job_seeker'){
 <section class="home">
 
    <div class="content">
-      <h3>Hey There Job Seeker</h3>
-      <a href="about.php" class="white-btn">discover more</a>
+      <h3>Unexpired Jobs</h3>
+      <a href="all_jobs.php" class="white-btn">
+         <?php 
+
+         $total_vacant = mysqli_query($conn, "SELECT COUNT(*) AS num_jobs
+         FROM jobs_posted
+         WHERE job_post_status = 'Approved' AND job_expiration_date > CURDATE()") or die('query failed');
+
+         echo mysqli_num_rows($total_vacant);
+         ?>
+      </a>
    </div>
 
 </section>
