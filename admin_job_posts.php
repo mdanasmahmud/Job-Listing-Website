@@ -64,6 +64,25 @@ if(isset($_GET['delete'])){
          <p> Job Salary : <span><?php echo $fetch_job['job_salary']; ?></span> </p>
          <p> Job Details : <span><?php echo $fetch_job['job_details']; ?></span> </p>
          <p> Job Expires On : <span><?php echo $fetch_job['job_expiration_date']; ?></span> </p>
+
+         <?php
+         $company_id = $fetch_job['id'];
+
+         $sql = "SELECT COUNT(*) as num_rows FROM jobs_posted WHERE job_company_id = '$company_id'";
+         $result = mysqli_query($conn, $sql);
+
+         if ($result && mysqli_num_rows($result) > 0) {
+
+            $row = mysqli_fetch_assoc($result);
+            $num_rows = $row['num_rows'];
+
+            if ($num_rows >= 3) {
+               echo '<p>Bkash Transaction: <span style="font-weight: bold;">' . $fetch_job['bkash_transaction'] . '</span></p>';
+            }
+         }
+         ?>
+
+
          <form action="" method="post">
             <input type="hidden" name="job_id" value="<?php echo $fetch_job['job_id']; ?>">
             <select name="update_status">

@@ -72,7 +72,7 @@ if(isset($_POST['add_job_button'])){
          <option value="Full Time">Full Time</option>
          <option value="Part Time">Part Time</option>
       </select>
-
+      <p style="font-size: 16px; text-align: left;">Post Expire Date:</p>
       <input type="date" name="job_expiration_date" class="box" placeholder="Publication Date" required>
       
       <select name="job_category" class="box" required> 
@@ -89,6 +89,24 @@ if(isset($_POST['add_job_button'])){
          <option value="NGO">NGO</option>
          <option value="Others">Others</option>
       </select>
+
+      <?php
+      $current_company = $_SESSION['user_id'];
+
+      $sql = "SELECT COUNT(*) as num_rows FROM jobs_posted WHERE job_company_id = '$current_company'";
+      $result = mysqli_query($conn, $sql);
+
+      if ($result && mysqli_num_rows($result) > 0) {
+
+         $row = mysqli_fetch_assoc($result);
+         $num_rows = $row['num_rows'];
+
+         if ($num_rows >= 3) {
+            echo '<p style="font-size: 16px; text-align: left;">Bkash Number: 01302542233</p>';
+            echo '<input type="text" name="bkash_transaction" class="box" placeholder="Bkash Transaction" required>';
+         }
+      }
+      ?>
 
 
       <input type="submit" value="Post Job" name="add_job_button" class="btn">
