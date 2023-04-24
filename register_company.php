@@ -84,7 +84,7 @@ if(isset($message)){
       <input type="password" name="cpassword" placeholder="Confirm Password" required class="box">
 
       <p>Upload Your Company's Logo</p>
-      <input type="file" name="profile_image" accept="profile_image/jpg, profile_image/jpeg, profile_image/png" class="box">
+      <input type="file" name="profile_image" accept="profile_image/jpg, profile_image/jpeg, profile_image/png" class="box" required>
       <p>Upload Company Documents as PDF</p>
       <input type="file" name="document_pdf" accept="document_pdf/pdf" class="box" required>
 
