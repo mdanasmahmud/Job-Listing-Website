@@ -246,13 +246,17 @@ if(isset($_POST['job_sort_button'])){
             ?>
          <form action="" method="post" class="box">
          <p> <span class="details" style="font-size: 19px; color: green;"><span><?php echo $fetch_products['job_creation_date']; ?></span> </p>
-            <div class="job_title"><?php echo $fetch_products['job_title']; ?></div>
+            <div class="job_title"><a href="all_jobs.php?update=<?php echo $fetch_products['job_id']; ?>"><?php echo $fetch_products['job_title']; ?></a></div>
             <div class="company_name"><?php echo $fetch_products['name']; ?></div>
             <br>
 
             <div class="box">
                <div class="job_details"><?php echo (strlen($fetch_products['job_details']) > 70) ? substr($fetch_products['job_details'],0,30).'...' : $fetch_products['job_details']; ?></div>
             </div>
+         
+            
+            
+            
          </form>
             <?php
                }
@@ -274,26 +278,26 @@ if(isset($_POST['job_sort_button'])){
    <?php
       if(isset($_GET['update'])){
          $job_detail_id = $_GET['update'];
-         $update_query = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE id = '{$job_detail_id}'") or die('query failed');
+         $update_query = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_id = '{$job_detail_id}'") or die('query failed');
          if(mysqli_num_rows($update_query) > 0){
             while($fetch_update = mysqli_fetch_assoc($update_query)){
    ?>
-         <form action="" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="update_job_id" value="<?php echo $fetch_update['id']; ?>">
+      <form action="" method="post" enctype="multipart/form-data">
 
-            <img src="uploaded_img/<?php echo $fetch_update['image']; ?>" alt="">
-            <p type="text" name="show_job_title" class="box" style="font-size: 20px; color: red;"><?php echo $fetch_update['name']; ?></p>
-            <p type="text" name="show_job_author_name" class="box" style="font-size: 15px; color: black;">Author: <?php echo $fetch_update['author_name']; ?></p>
-            <p type="text" name="show_job_title" class="box" style="font-size: 15px;">Genre: <?php echo $fetch_update['job_genre']; ?></p>
-            <textarea type="text" name="show_job_description" cols="30" rows="5" class="box" disabled><?php echo $fetch_update['description']; ?></textarea>
-            <p type="text" name="show_job_title" class="box" style="font-size: 15px;">Language: <?php echo $fetch_update['job_language']; ?></p>
-            <p type="text" name="show_job_title" class="box" style="font-size: 15px;">Pages: <?php echo $fetch_update['page_numbers']; ?></p>
+            <img src="uploaded_img/<?php echo $fetch_update['company_logo']; ?>" alt="">
+            <p type="text" name="show_job_title" class="box" style="font-size: 24px; color: purple;"><?php echo $fetch_update['job_title']; ?></p>
+            <p type="text" name="show_job_title" class="box" style="font-size: 24px; color: red;"><?php echo $fetch_update['name']; ?></p>
+            <p type="text" name="show_job_title" class="box" style="font-size: 18px;"><?php echo $fetch_update['job_type']; ?></p>
+            <textarea type="text" name="show_job_description" cols="50" rows="15" class="box" disabled><?php echo $fetch_update['job_details']; ?></textarea>
+            <p type="text" name="show_job_title" class="box" style="font-size: 18px;">Job Category: <?php echo $fetch_update['job_category']; ?></p>
+            <p type="text" name="show_job_title" class="box" style="font-size: 18px;">Job Post Expiration: <?php echo $fetch_update['job_expiration_date']; ?></p>
 
-           
+      
 
-            <input type="reset" value="cancel" id="close-update" class="option-btn" onclick="window.location = 'all_jobs.php'">
-         </form>
-   <?php
+         <input type="reset" value="cancel" id="close-update" class="option-btn" onclick="window.location = 'all_jobs.php'">
+      </form>
+
+         <?php
          }
       }
       }else{

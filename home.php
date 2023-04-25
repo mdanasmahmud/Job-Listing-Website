@@ -26,6 +26,7 @@ if($account_type != 'job_seeker'){
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="css/admin_style.css">
 
 </head>
 <body>
@@ -56,7 +57,7 @@ if($account_type != 'job_seeker'){
 
    <div class="box-container">
       <?php  
-         $select_jobs = mysqli_query($conn, "SELECT jobs_posted.job_title, company.name
+         $select_jobs = mysqli_query($conn, "SELECT jobs_posted.job_title, company.name, jobs_posted.job_id
          FROM `jobs_posted`
          INNER JOIN `company` ON jobs_posted.job_company_id = company.id
          LIMIT 3") or die('query failed');
@@ -65,7 +66,9 @@ if($account_type != 'job_seeker'){
       ?>
       
      <form action="" method="post" class="box">
-      <div class="qty"><?php echo $fetch_products['job_title']; ?><br></div>
+      
+      <div class="qty"><a href="home.php?update=<?php echo $fetch_products['job_id']; ?>"><?php echo $fetch_products['job_title']; ?><br></div>
+      
       <div class="price"><?php echo $fetch_products['name']; ?></div>
      </form>
       <?php
@@ -110,6 +113,39 @@ if($account_type != 'job_seeker'){
 
 </section>
 
+<section class="edit-product-form">
+
+   <?php
+      if(isset($_GET['update'])){
+         $job_detail_id = $_GET['update'];
+         $update_query = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` on jobs_posted.job_company_id = company.id WHERE job_id = '{$job_detail_id}'") or die('query failed');
+         if(mysqli_num_rows($update_query) > 0){
+            while($fetch_update = mysqli_fetch_assoc($update_query)){
+   ?>
+      <form action="" method="post" enctype="multipart/form-data">
+
+            <img src="uploaded_img/<?php echo $fetch_update['company_logo']; ?>" alt="">
+            <p type="text" name="show_job_title" class="box" style="font-size: 24px; color: purple;"><?php echo $fetch_update['job_title']; ?></p>
+            <p type="text" name="show_job_title" class="box" style="font-size: 24px; color: red;"><?php echo $fetch_update['name']; ?></p>
+            <p type="text" name="show_job_title" class="box" style="font-size: 18px;"><?php echo $fetch_update['job_type']; ?></p>
+            <textarea type="text" name="show_job_description" cols="50" rows="15" class="box" disabled><?php echo $fetch_update['job_details']; ?></textarea>
+            <p type="text" name="show_job_title" class="box" style="font-size: 18px;">Job Category: <?php echo $fetch_update['job_category']; ?></p>
+            <p type="text" name="show_job_title" class="box" style="font-size: 18px;">Job Post Expiration: <?php echo $fetch_update['job_expiration_date']; ?></p>
+
+      
+
+         <input type="reset" value="cancel" id="close-update" class="option-btn" onclick="window.location = 'home.php'">
+      </form>
+
+         <?php
+         }
+      }
+      }else{
+         echo '<script>document.querySelector(".edit-product-form").style.display = "none";</script>';
+      }
+   ?>
+
+</section>
 
 
 
