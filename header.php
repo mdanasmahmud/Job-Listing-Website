@@ -79,7 +79,7 @@ if (isset($_GET['value'])) {
             <a href="all_jobs.php">All Jobs</a>
 
             <div class="dropdown">
-              <a href="#" class="dropbtn">Job Category</a>
+            <a href="all_jobs.php" class="dropbtn" style="color: gray; pointer-events: none;">Job Category</a>
               <div class="dropdown-content">
                 <a href="all_jobs.php?value=Accounting">Accounting</a>
                 <a href="all_jobs.php?value=Bank">Bank</a>

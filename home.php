@@ -35,7 +35,7 @@ if($account_type != 'job_seeker'){
 <section class="home">
 
    <div class="content">
-      <h3>Unexpired Jobs</h3>
+      <h3>Vacant Jobs</h3>
       <a href="all_jobs.php" class="white-btn">
          <?php 
 
@@ -55,15 +55,18 @@ if($account_type != 'job_seeker'){
    <h1 class="title">latest Jobs</h1>
 
    <div class="box-container">
-
       <?php  
-         $select_jobs = mysqli_query($conn, "SELECT * FROM `jobs_posted` LIMIT 3") or die('query failed');
+         $select_jobs = mysqli_query($conn, "SELECT jobs_posted.job_title, company.name
+         FROM `jobs_posted`
+         INNER JOIN `company` ON jobs_posted.job_company_id = company.id
+         LIMIT 3") or die('query failed');
          if(mysqli_num_rows($select_jobs) > 0){
             while($fetch_products = mysqli_fetch_assoc($select_jobs)){
       ?>
+      
      <form action="" method="post" class="box">
       <div class="qty"><?php echo $fetch_products['job_title']; ?><br></div>
-      <div class="price"><?php echo $fetch_products['job_type']; ?></div>
+      <div class="price"><?php echo $fetch_products['name']; ?></div>
      </form>
       <?php
          }

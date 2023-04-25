@@ -141,25 +141,25 @@ if(isset($_POST['job_sort_button'])){
 
          if (isset($_SESSION['value'])) {
             // Use the value
-            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` WHERE job_category='$job_header_category' AND job_post_status='Approved'") or die('query failed');
-            echo "<script>console.log('" . $_SESSION['value'] . "');</script>";
+            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` ON jobs_posted.job_company_id = company.id WHERE job_category='$job_header_category' AND job_post_status='Approved'") or die('query failed');
+            // echo "<script>console.log('" . $_SESSION['value'] . "');</script>";
             
             
          }
 
          else if(($job_category == 'All') and ($job_sort == 'Date Ascending') and (!isset($_POST['job_sort_button']))){ // This posts everything
-            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` WHERE job_post_status='Approved'") or die('query failed');
+            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` ON jobs_posted.job_company_id = company.id WHERE job_post_status='Approved'") or die('query failed');
             
          }
 
 
 
          else if(($job_category == 'All') and ($job_sort == 'Date Ascending') and ($job_type == 'Both Time') and (isset($_POST['job_sort_button']))){ // If the category button was pressed
-               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` WHERE job_post_status='Approved'") or die('query failed');
+               $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` ON jobs_posted.job_company_id = company.id WHERE job_post_status='Approved'") or die('query failed');
             
          }
          else if(($job_category == 'All') and ($job_sort == 'Date Ascending') and ($job_type != 'Both Time') and (isset($_POST['job_sort_button']))){ // If the category button was pressed
-            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` WHERE job_type='$job_type' AND job_post_status='Approved'") or die('query failed');
+            $select_job = mysqli_query($conn, "SELECT * FROM `jobs_posted` INNER JOIN `company` ON jobs_posted.job_company_id = company.id WHERE job_type='$job_type' AND job_post_status='Approved'") or die('query failed');
          
          }
 
@@ -245,8 +245,14 @@ if(isset($_POST['job_sort_button'])){
             while($fetch_products = mysqli_fetch_assoc($select_job)){
             ?>
          <form action="" method="post" class="box">
-            <div class="name"><?php echo $fetch_products['job_title']; ?></div>
-            <div class="price"><?php echo $fetch_products['job_type']; ?></div>
+         <p> <span class="details" style="font-size: 19px; color: green;"><span><?php echo $fetch_products['job_creation_date']; ?></span> </p>
+            <div class="job_title"><?php echo $fetch_products['job_title']; ?></div>
+            <div class="company_name"><?php echo $fetch_products['name']; ?></div>
+            <br>
+
+            <div class="box">
+               <div class="job_details"><?php echo (strlen($fetch_products['job_details']) > 70) ? substr($fetch_products['job_details'],0,30).'...' : $fetch_products['job_details']; ?></div>
+            </div>
          </form>
             <?php
                }
@@ -255,6 +261,11 @@ if(isset($_POST['job_sort_button'])){
          }
       ?>
    </div>
+<!-- To make the time stay at top right corner -->
+<style>
+.box p { position: relative; }
+.box .details { position: absolute; top: 0; right: 0; }
+</style>
 
 </section>
 

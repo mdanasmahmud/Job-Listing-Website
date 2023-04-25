@@ -70,14 +70,18 @@ if(isset($_POST['update_job_post'])){
                      JOIN `jobs_posted` ON job_application.job_post_id = jobs_posted.job_id
                      JOIN `job_seeker` ON job_application.job_seeker_id = job_seeker.id WHERE job_company_id='$company_id'") or die('query failed');
          $total_applicants = mysqli_num_rows($select_post); // Counting the total number of applicants
-         $select_latest = mysqli_query($conn, "SELECT *
+         $latest_applicant = null;
+         if($total_applicants > 0){
+            $select_latest = mysqli_query($conn, "SELECT *
                      FROM `job_application`
                      JOIN `jobs_posted` ON job_application.job_post_id = jobs_posted.job_id
                      JOIN `job_seeker` ON job_application.job_seeker_id = job_seeker.id WHERE job_company_id='$company_id' ORDER BY application_id DESC LIMIT 1") or die('query failed');
          $latest_applicant = mysqli_fetch_assoc($select_latest); // Fetching the latest applicant
+
+         }
          ?>
          <h3 class="title">Total Applicants: <?php echo $total_applicants ?></h3>
-         <p>Recent Applicant: <span><?php if($latest_applicant['name'] == null){echo "No Applicant";} ?></span></p>
+         <p>Recent Applicant: <span><?php if($latest_applicant == null){echo "No Applicant";} ?></span></p>
       </div>
 
 

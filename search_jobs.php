@@ -56,9 +56,15 @@ if($account_type != 'job_seeker'){
       ?>
 
       <form action="" method="post" class="box">
-         <div class="price"><?php echo $fetch_job['job_title']; ?></div>
-         <div class="name"><?php echo $fetch_job['job_type']; ?></div>
-      </form>
+         <p> <span class="details" style="font-size: 19px; color: green;"><span><?php echo $fetch_job['job_creation_date']; ?></span> </p>
+            <div class="job_title"><?php echo $fetch_job['job_title']; ?></div>
+            <div class="company_name"><?php echo $fetch_job['name']; ?></div>
+            <br>
+
+            <div class="box">
+               <div class="job_details"><?php echo (strlen($fetch_job['job_details']) > 70) ? substr($fetch_job['job_details'],0,30).'...' : $fetch_job['job_details']; ?></div>
+            </div>
+         </form>
       <?php
                }
             }else{
@@ -72,7 +78,10 @@ if($account_type != 'job_seeker'){
 
 </section>
 
-
+<style>
+.box p { position: relative; }
+.box .details { position: absolute; top: 0; right: 0; }
+</style>
 
 
 <!-- custom js file link  -->

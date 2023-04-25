@@ -393,9 +393,6 @@ section{
    position: relative;
 }
 
-.joblist .box-container .box .image{
-   height: 30rem;
-}
 
 .joblist .box-container .box .name{
    padding:1rem 0;

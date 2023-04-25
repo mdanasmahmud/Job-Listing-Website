@@ -33,8 +33,8 @@ if($account_type != 'job_seeker'){
 <?php include 'header.php'; ?>
 
 <div class="heading">
-   <h3>Tutorials</h3>
-   <p> <a href="home.php">Home</a> / Tutorials </p>
+   <h3 style="color: white;">Tutorials</h3>
+   <p style="color: #ccc;"> <a href="home.php">Home</a> / Tutorials </p>
 </div>
 
 <section class="joblist">
@@ -47,15 +47,31 @@ if($account_type != 'job_seeker'){
 
    <div class="box-container" style="grid-template-columns: repeat(auto-fit, 50rem); justify-content: center;">
       
-
-      <form action="" method="post" class="box" style="text-align: center;">
-      <div class="name">How To Create A CV</div>
-      <iframe width="440" height="215" src="https://www.youtube.com/embed/_fP43gcBywU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-      </form>
+   <form action="" method="post" class="box" style="text-align: center;">
+    <div class="name" style="font-size: 32px; margin-top: -60px;">How To Create A CV</div>
+    <iframe src="https://www.youtube.com/embed/_fP43gcBywU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</form>
       
    </div>
 </section>
+
+<style>
+   .box {
+      position: relative;
+      width: 500px; /* set the width of the box */
+      height: 300px; /* set the height of the box */
+   }
+
+   .box iframe {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+   }
+</style>
 
 <?php include 'footer.php'; ?>
 
