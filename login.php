@@ -1,5 +1,18 @@
 <?php
 
+
+if(isset($message)){
+   foreach($message as $message){
+      echo '
+      <div class="message">
+         <span>'.$message.'</span>
+         <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+      </div>
+      ';
+   }
+}
+
+
 include 'config.php';
 session_start();
 
@@ -58,10 +71,10 @@ if(isset($_POST['submit'])){
          $_SESSION['account_type'] = $row['account_type'];
          header('location:company_dashboard.php');
 
-   }else{
-      $message[] = 'incorrect email or password!';
    }
 
+}else{
+   $message[] = 'Email or password is incorrect';
 }
 
 }?>

@@ -98,12 +98,29 @@ if(isset($_POST['update_job_post'])){
          $latest_job = mysqli_fetch_assoc($select_latest); // Fetching the latest applicant
          ?>
          <h3 class="title">Total Jobs Posted: <?php echo $total_job_post ?></h3>
-         <p>Recent Job: <span><?php echo $latest_job['job_title'] ?></span></p>
+         <p>Recent Job: <span><?php if($latest_job == null){echo "No Job Posts Yet";}else{echo $latest_job['job_title'];} ?></span></p>
       </div>
 
       <div class="box">
-         <h3 class="title">Total Messages</h3>
-         <p>Recent Message: <span></span></p>
+      <?php
+         $user_id = $_SESSION['user_id'];
+         $select_post = mysqli_query($conn, "SELECT DISTINCT message_sender_id
+                     FROM `message`
+                     WHERE message_receiver_id='$user_id'") or die('query failed');
+         $total_applicants = mysqli_num_rows($select_post); // Counting the total number of applicants
+         $latest_applicant = null;
+         
+         if($total_applicants > 0){
+            $select_latest = mysqli_query($conn, "SELECT *
+                     FROM `message`
+                     JOIN `company` ON message.message_sender_id = company.id
+                     WHERE message_receiver_id='$user_id' ORDER BY message_time DESC LIMIT 1") or die('query failed');
+         $latest_applicant = mysqli_fetch_assoc($select_latest); // Fetching the latest applicant
+
+         }
+         ?>
+         <h3 class="title">Total Messages: <?php echo $total_applicants ?></h3>
+         <p>Recent Message: <span><?php if($latest_applicant == null){echo "Got No Messages Yet";}else{echo $latest_applicant['name'];} ?></span></p>
 
          
       </div>
@@ -126,7 +143,7 @@ if(isset($_POST['update_job_post'])){
 
       <?php
          $display_company_id = $_SESSION['user_id'];
-         $select_book = mysqli_query($conn, "SELECT * FROM `jobs_posted` WHERE job_company_id='$display_company_id'") or die('query failed');
+         $select_book = mysqli_query($conn, "SELECT * FROM `jobs_posted` WHERE job_company_id='$display_company_id' ORDER BY job_creation_date desc") or die('query failed');
             
         
          if(mysqli_num_rows($select_book) > 0){

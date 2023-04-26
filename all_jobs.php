@@ -10,6 +10,15 @@ if($account_type != 'job_seeker'){
    header('location:login.php');
 }
 
+if(isset($_GET['company_id'])){
+   $user_id = $_SESSION['user_id'];
+   $company_id = $_GET['company_id'];
+   $insert_message = mysqli_query($conn, "INSERT INTO bookmark (bookmark_company, bookmark_job_seeker) VALUES ('$company_id', '$user_id')") or die('query failed');
+   $message[] = 'Bookmarked';
+   
+   header('location:user_bookmarked.php');
+
+}
 
 $_SESSION['job_category'] = 'All';
 $_SESSION['job_sort'] = 'Date Ascending';
@@ -292,8 +301,8 @@ if(isset($_POST['job_sort_button'])){
             <p type="text" name="show_job_title" class="box" style="font-size: 18px;">Job Category: <?php echo $fetch_update['job_category']; ?></p>
             <p type="text" name="show_job_title" class="box" style="font-size: 18px;">Job Post Expiration: <?php echo $fetch_update['job_expiration_date']; ?></p>
 
-      
-
+            <a href="user_job_apply.php?job_apply_id=<?php echo $fetch_update['job_id']; ?>" class="btn" style="background-color: green;">Apply Job</a>
+            <a class="btn" href="search_jobs.php?company_id=<?php echo $fetch_update['id']; ?>&job_title=<?php echo urlencode($fetch_update['job_title']); ?>">Bookmark</a>
          <input type="reset" value="cancel" id="close-update" class="option-btn" onclick="window.location = 'all_jobs.php'">
       </form>
 

@@ -98,7 +98,6 @@ if (isset($_GET['value'])) {
               </div>
             </div>
             <a href="tutorials.php">Tutorials</a>
-            <a href="applied_jobs.php">Applied Jobs</a>
             
             
          </nav>
@@ -112,7 +111,9 @@ if (isset($_GET['value'])) {
          <div class="user-box">
             <p>Username : <span><?php echo $_SESSION['user_name']; ?></span></p>
             <p>Email : <span><?php echo $_SESSION['user_email']; ?></span></p>
-            <a href="user_profile.php" class="option-btn">Profile</a>
+            <a href="user_dashboard.php" class="option-btn">Dashboard</a>
+            <br>
+            <br>
             <a href="logout.php" class="delete-btn">Logout</a>
          </div>
       </div>

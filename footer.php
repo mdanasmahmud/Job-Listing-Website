@@ -5,9 +5,8 @@
       <div class="box">
          <h3>quick links</h3>
          <a href="home.php">Home</a>
-         <a href="about.php">About</a>
-         <a href="shop.php">Browse Jobs</a>
-         <a href="contact.php">Contact</a>
+         <a href="all_jobs.php">Browse Jobs</a>
+         <a href="tutorials.php">Tutorials</a>
       </div>
 
       <div class="box">

@@ -11,6 +11,16 @@ if($account_type != 'job_seeker'){
    header('location:login.php');
 }
 
+if(isset($_GET['company_id'])){
+   $user_id = $_SESSION['user_id'];
+   $company_id = $_GET['company_id'];
+   $insert_message = mysqli_query($conn, "INSERT INTO bookmark (bookmark_company, bookmark_job_seeker) VALUES ('$company_id', '$user_id')") or die('query failed');
+   $message[] = 'Bookmarked';
+   
+   header('location:user_bookmarked.php');
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +29,7 @@ if($account_type != 'job_seeker'){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>home</title>
+   <title>Home</title>
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -96,7 +106,6 @@ if($account_type != 'job_seeker'){
       <div class="content">
          <h3>about us</h3>
          <p>We are a student of CSE471 Group 12</p>
-         <a href="about.php" class="btn">read more</a>
       </div>
 
    </div>
@@ -104,14 +113,11 @@ if($account_type != 'job_seeker'){
 </section>
 
 <section class="home-contact">
-
-   <div class="content">
-      <h3>have any questions?</h3>
-      <p>You can send us a mail or even better, contact us through the button below</p>
-      <a href="contact.php" class="white-btn">contact us</a>
-   </div>
-
-</section>
+  <div class="content">
+    <h3>have any questions?</h3>
+    <p>You can send us a mail</p>
+  </div>
+</section
 
 <section class="edit-product-form">
 
@@ -133,7 +139,8 @@ if($account_type != 'job_seeker'){
             <p type="text" name="show_job_title" class="box" style="font-size: 18px;">Job Post Expiration: <?php echo $fetch_update['job_expiration_date']; ?></p>
 
       
-
+         <a href="user_job_apply.php?job_apply_id=<?php echo $fetch_update['job_id']; ?>" class="btn" style="background-color: green;">Apply Job</a>
+         <a class="btn" href="search_jobs.php?company_id=<?php echo $fetch_update['id']; ?>&job_title=<?php echo urlencode($fetch_update['job_title']); ?>">Bookmark</a>
          <input type="reset" value="cancel" id="close-update" class="option-btn" onclick="window.location = 'home.php'">
       </form>
 

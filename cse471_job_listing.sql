@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2023 at 03:38 AM
+-- Generation Time: Apr 26, 2023 at 12:59 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `cse471_job_listing`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookmark`
+--
+
+CREATE TABLE `bookmark` (
+  `bookmark_id` int(100) NOT NULL,
+  `bookmark_company` int(100) NOT NULL,
+  `bookmark_job_seeker` int(100) NOT NULL,
+  `bookmark_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bookmark`
+--
+
+INSERT INTO `bookmark` (`bookmark_id`, `bookmark_company`, `bookmark_job_seeker`, `bookmark_date`) VALUES
+(1, 1, 17, '2023-04-25 23:19:27'),
+(2, 0, 17, '2023-04-26 00:07:18'),
+(3, 2, 17, '2023-04-26 00:16:06'),
+(4, 2, 16, '2023-04-26 09:30:27'),
+(5, 1, 16, '2023-04-26 09:32:29'),
+(6, 2, 16, '2023-04-26 09:32:42');
 
 -- --------------------------------------------------------
 
@@ -96,6 +121,7 @@ CREATE TABLE `job_application` (
   `application_id` int(11) NOT NULL,
   `job_post_id` int(11) NOT NULL,
   `job_seeker_id` int(11) NOT NULL,
+  `job_seeker_cv` varchar(100) DEFAULT NULL,
   `application_status` varchar(100) NOT NULL DEFAULT 'Pending',
   `job_application_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -104,8 +130,10 @@ CREATE TABLE `job_application` (
 -- Dumping data for table `job_application`
 --
 
-INSERT INTO `job_application` (`application_id`, `job_post_id`, `job_seeker_id`, `application_status`, `job_application_date`) VALUES
-(1, 4, 1, 'Approve', '2023-04-19 12:18:25');
+INSERT INTO `job_application` (`application_id`, `job_post_id`, `job_seeker_id`, `job_seeker_cv`, `application_status`, `job_application_date`) VALUES
+(1, 4, 1, NULL, 'Approve', '2023-04-19 12:18:25'),
+(2, 4, 17, NULL, 'Pending', '2023-04-25 18:38:05'),
+(3, 3, 16, 'Group12_Sec5_Final_Document.pdf', 'Pending', '2023-04-25 21:59:08');
 
 -- --------------------------------------------------------
 
@@ -120,9 +148,10 @@ CREATE TABLE `job_seeker` (
   `password` varchar(100) NOT NULL,
   `picture` varchar(100) DEFAULT NULL,
   `portfolio` text DEFAULT NULL,
+  `education_document` varchar(100) DEFAULT NULL,
   `security_answer` varchar(100) NOT NULL,
   `nid_picture` varchar(100) DEFAULT NULL,
-  `account_creation_date` date NOT NULL,
+  `account_creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `bookmarked_company` varchar(100) DEFAULT NULL,
   `account_type` varchar(100) NOT NULL,
   `always_null` int(11) DEFAULT NULL
@@ -132,10 +161,10 @@ CREATE TABLE `job_seeker` (
 -- Dumping data for table `job_seeker`
 --
 
-INSERT INTO `job_seeker` (`id`, `name`, `email`, `password`, `picture`, `portfolio`, `security_answer`, `nid_picture`, `account_creation_date`, `bookmarked_company`, `account_type`, `always_null`) VALUES
-(16, 'final test', 'finaltest@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '5.jpg', NULL, 'c988fa7c33ce43962b9803702b747a35', '342052966_938380127361192_3258785781992226560_n.jpg', '0000-00-00', NULL, 'job_seeker', NULL),
-(17, 'final1', 'final@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', NULL, 'c988fa7c33ce43962b9803702b747a35', '', '0000-00-00', NULL, 'job_seeker', NULL),
-(19, 'admin', 'admin@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', NULL, 'c988fa7c33ce43962b9803702b747a35', '', '0000-00-00', NULL, 'admin', NULL);
+INSERT INTO `job_seeker` (`id`, `name`, `email`, `password`, `picture`, `portfolio`, `education_document`, `security_answer`, `nid_picture`, `account_creation_date`, `bookmarked_company`, `account_type`, `always_null`) VALUES
+(16, 'final test', 'finaltest@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Screenshot_20230420-154326.png', 'Now my portfolio is complete', 'CSE472Activity15.pdf', 'c988fa7c33ce43962b9803702b747a35', 'Screenshot_20230420-164104.png', '2023-04-25 22:41:10', NULL, 'job_seeker', NULL),
+(17, 'final1', 'final@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '337159189_802999737339285_2911540560169458163_n.jpg', 'This is the portfolio for the user final1', NULL, 'c988fa7c33ce43962b9803702b747a35', '5.jpg', '0000-00-00 00:00:00', NULL, 'job_seeker', NULL),
+(19, 'admin', 'admin@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', NULL, NULL, 'c988fa7c33ce43962b9803702b747a35', '', '2023-04-26 08:22:10', NULL, 'admin', NULL);
 
 -- --------------------------------------------------------
 
@@ -164,11 +193,26 @@ INSERT INTO `message` (`message_id`, `message_sender_id`, `message_receiver_id`,
 (8, 1, 17, 'Horay!', '2023-04-23 15:07:33'),
 (11, 1, 19, 'qw', '2023-04-23 16:14:10'),
 (14, 19, 1, 'working?', '2023-04-23 16:38:59'),
-(15, 1, 19, '321', '2023-04-23 16:40:24');
+(15, 1, 19, '321', '2023-04-23 16:40:24'),
+(16, 17, 1, 'Testing from final1 to Bkash Company', '2023-04-25 18:57:23'),
+(17, 17, 1, '1234', '2023-04-25 19:00:13'),
+(18, 19, 1, 'dfs', '2023-04-26 08:11:30'),
+(19, 16, 1, '2313', '2023-04-26 10:01:41'),
+(20, 8, 16, 'hey', '2023-04-26 10:19:47'),
+(21, 8, 16, 'is this working\r\n', '2023-04-26 10:19:53'),
+(22, 16, 1, 'wrwer', '2023-04-26 10:21:07'),
+(23, 8, 17, 'eewrwer', '2023-04-26 10:23:15'),
+(24, 17, 19, 'Hey I wanted to contact you', '2023-04-26 10:46:54');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `bookmark`
+--
+ALTER TABLE `bookmark`
+  ADD PRIMARY KEY (`bookmark_id`);
 
 --
 -- Indexes for table `company`
@@ -205,6 +249,12 @@ ALTER TABLE `message`
 --
 
 --
+-- AUTO_INCREMENT for table `bookmark`
+--
+ALTER TABLE `bookmark`
+  MODIFY `bookmark_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
@@ -220,7 +270,7 @@ ALTER TABLE `jobs_posted`
 -- AUTO_INCREMENT for table `job_application`
 --
 ALTER TABLE `job_application`
-  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `job_seeker`
@@ -232,7 +282,7 @@ ALTER TABLE `job_seeker`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `message_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `message_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

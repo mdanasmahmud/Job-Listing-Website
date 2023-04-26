@@ -28,7 +28,7 @@ if(isset($_POST['update_application_status'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Job Applications</title>
+   <title>Job Applicants</title>
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
@@ -67,12 +67,16 @@ if(isset($_POST['update_application_status'])){
          while($fetch_job = mysqli_fetch_assoc($select_post)){
       ?>
       <div class="box">
+         <p><img src="uploaded_img/profile_img/<?php echo $fetch_job['picture']; ?>" alt="Job Seeker Picture" style="width: 150px; height: 200px;"></span> </p>
          <p> Application ID : <span><?php echo $fetch_job['application_id']; ?></span> </p>
          <p> Job Post ID : <span><?php echo $fetch_job['job_post_id']; ?></span> </p>
          <p> Job Title : <span><?php echo $fetch_job['job_title']; ?></span> </p>
          <p> Applicant Name : <span><?php echo $fetch_job['name']; ?></span> </p>
          <p> Applicant Email : <span><?php echo $fetch_job['email']; ?></span> </p>
+         <p> Job Seeker CV: <a href="uploaded_img/user_cv/<?php echo urlencode($fetch_job['job_seeker_cv']); ?>" target="_blank"><?php echo $fetch_job['job_seeker_cv']; ?></a> </p>
          <p> Application Date : <span><?php echo $fetch_job['job_application_date']; ?></span> </p>
+
+
          <form action="" method="post">
             <input type="hidden" name="application_id" value="<?php echo $fetch_job['application_id']; ?>">
             <select name="update_status">

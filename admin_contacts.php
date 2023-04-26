@@ -24,7 +24,7 @@ if(isset($_GET['delete'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Messages</title>
+   <title>Admin Message</title>
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -50,7 +50,7 @@ if(isset($_GET['delete'])){
       JOIN company ON message.message_sender_id = company.id
       JOIN job_seeker ON message.message_receiver_id = job_seeker.id 
       WHERE message.message_receiver_id = '$admin_id'
-      GROUP BY job_seeker.name
+      GROUP BY company.name
       ORDER BY message_time ASC") or die('query failed');
       if(mysqli_num_rows($select_post) > 0){
          while($fetch_job = mysqli_fetch_assoc($select_post)){
