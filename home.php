@@ -117,7 +117,7 @@ if(isset($_GET['company_id'])){
     <h3>have any questions?</h3>
     <p>You can send us a mail</p>
   </div>
-</section
+   </section>
 
 <section class="edit-product-form">
 
